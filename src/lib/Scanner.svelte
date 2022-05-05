@@ -29,8 +29,9 @@
 		Html5Qrcode.getCameras()
 			.then((cameras) => {
 				scanner.start(
-					cameras[0].id,
+					{facingMode: 'environment'},
 					{
+						
 						fps: 10,
 						qrbox: {
 							width: options.scanArea?.width ?? 100,
