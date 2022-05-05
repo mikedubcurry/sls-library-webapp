@@ -10,7 +10,6 @@
 	}
 </script>
 
-
 <button on:click={() => (scannerVisible = !scannerVisible)}
 	>{scannerVisible ? 'hide' : 'show'} scanner</button
 >
