@@ -77,6 +77,9 @@
 		animation: spin 0.5s linear infinite;
 		border-radius: 50%;
 	}
+	#reader {
+		height: 100%;
+	}
 	.wrapper {
 		width: 100%;
 		height: 100%;
@@ -86,7 +89,7 @@
 		align-items: center;
 	}
 	.scanner {
-		height: 100%;
+		height: 100% ;
 	}
 	@keyframes spin {
 		to {

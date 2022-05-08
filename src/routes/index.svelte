@@ -13,20 +13,23 @@
 		scannerVisible = false;
 		goto(`/books/${code}`);
 	}
+
+	$: buttonMode = !scannerVisible;
 </script>
 
-<section class="scanner">
+<section class="scanner" class:buttonMode>
+	<div class="scan">
+		{#if scannerVisible}
+			<Scanner
+				options={{
+					codeType: Html5QrcodeSupportedFormats.EAN_13,
+					scanArea: { width: 200, height: 125 },
+				}}
+				on:scan-success={(e) => handleScan(e.detail)}
+			/>
+		{/if}
+	</div>
 	<button on:click={toggleScannerVisible}>{scannerVisible ? 'hide' : 'show'} scanner</button>
-
-	{#if scannerVisible}
-		<Scanner
-			options={{
-				codeType: Html5QrcodeSupportedFormats.EAN_13,
-				scanArea: { width: 200, height: 125 },
-			}}
-			on:scan-success={(e) => handleScan(e.detail)}
-		/>
-	{/if}
 </section>
 
 <style>
@@ -38,6 +41,14 @@
 		box-shadow: 2px 2px 0px lightskyblue;
 		transition: all 0.2s;
 		width: 10rem;
+		grid-row: 2;
+		justify-self: center;
+		align-self: center;
+	}
+	.scan {
+		grid-row: 1;
+		align-self: center;
+		justify-self: center;
 	}
 	button:hover {
 		box-shadow: 3px 3px 0px lightskyblue;
@@ -45,14 +56,17 @@
 	button:active {
 		box-shadow: 1px 1px 0px lightskyblue;
 	}
+	/* find work-around to get this effect working in Chrome, not just FireFox */
 	.scanner {
 		height: 100%;
-		max-height: 90vh;
+		max-height: 50%;
 		min-width: 300px;
 		background-color: #aaa;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: space-evenly;
+		display: grid;
+		grid-template-rows: 80% 20%;
+		transition: all 0.3s ease;
+	}
+	.buttonMode {
+		grid-template-rows: 0% 100%;
 	}
 </style>
