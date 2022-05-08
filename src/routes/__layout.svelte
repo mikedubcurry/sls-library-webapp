@@ -15,9 +15,11 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: flex-start;
+		height: 95vh;
 	}
 	div {
 		min-height: 100vh;
+		height: 100%;
 		background-color: #eee;
 	}
 </style>

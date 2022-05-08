@@ -46,7 +46,8 @@
 		box-shadow: 1px 1px 0px lightskyblue;
 	}
 	.scanner {
-		height: 500px;
+		height: 100%;
+		max-height: 90vh;
 		min-width: 300px;
 		background-color: #aaa;
 		display: flex;
