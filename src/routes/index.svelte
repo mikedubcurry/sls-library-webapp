@@ -26,12 +26,26 @@
 	}
 	function handleScan(code: string) {
 		console.log(code);
-		scannerVisible = false;
-		goto(`/books/${code}`);
+
+		// fetch book data
+		checkForBook(code).then((bookExists) => {
+			if (bookExists) {
+				scannerVisible = false;
+				goto(`/books/${code}`);
+			}
+		});
+	}
+
+	async function checkForBook(isbn: string) {
+		try {
+			const res = await fetch(`/api/scans/${isbn}.json`);
+			return await res.json();
+		} catch (e) {
+			return false;
+		}
 	}
 
 	$: buttonMode = !scannerVisible;
-	// $: console.log(recentScans);
 </script>
 
 <section class="scanner" class:buttonMode>
