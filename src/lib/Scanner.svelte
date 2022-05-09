@@ -28,8 +28,9 @@
 
 		Html5Qrcode.getCameras()
 			.then((cameras) => {
+				
 				scanner.start(
-					{ facingMode: 'environment' },
+					{ facingMode: 'environment',  },
 					{
 						fps: 10,
 						qrbox: {

@@ -40,7 +40,7 @@
 			<Scanner
 				options={{
 					codeType: Html5QrcodeSupportedFormats.EAN_13,
-					scanArea: { width: 200, height: 125 },
+					scanArea: { width: 150, height: 85 },
 				}}
 				on:scan-success={(e) => handleScan(e.detail)}
 			/>
