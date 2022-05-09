@@ -1,9 +1,25 @@
+<script context="module" lang="ts">
+	export const load: Load = async ({ fetch, session }) => {
+		const res = await fetch('/api/scans.json');
+		const data = await res.json();
+
+		return {
+			status: 200,
+			props: {
+				recentScans: data,
+			},
+		};
+	};
+</script>
+
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import Scanner from '$lib/Scanner.svelte';
+	import type { Load } from '@sveltejs/kit';
 	import { Html5QrcodeSupportedFormats } from 'html5-qrcode';
 
 	let scannerVisible = false;
+	export let recentScans: any;
 
 	function toggleScannerVisible() {
 		scannerVisible = !scannerVisible;
@@ -15,6 +31,7 @@
 	}
 
 	$: buttonMode = !scannerVisible;
+	// $: console.log(recentScans);
 </script>
 
 <section class="scanner" class:buttonMode>
@@ -30,6 +47,13 @@
 		{/if}
 	</div>
 	<button on:click={toggleScannerVisible}>{scannerVisible ? 'hide' : 'show'} scanner</button>
+</section>
+<section class="recnetScans">
+	{#each recentScans as recentScan}
+		<div class="scan">
+			{recentScan.a}
+		</div>
+	{/each}
 </section>
 
 <style>
