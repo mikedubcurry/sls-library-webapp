@@ -27,8 +27,6 @@
         author: string
         checkedOut: boolean
     };
-
-	// $: console.log(book);
 </script>
 
 <div class="book">
