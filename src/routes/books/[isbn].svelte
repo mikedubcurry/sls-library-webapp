@@ -22,7 +22,11 @@
 </script>
 
 <script lang="ts">
-	export let book: any;
+	export let book: {
+        title: string
+        author: string
+        checkedOut: boolean
+    };
 
 	// $: console.log(book);
 </script>
