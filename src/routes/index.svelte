@@ -15,10 +15,12 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import Scanner from '$lib/Scanner.svelte';
+	import Toast from '$lib/Toast.svelte';
 	import type { Load } from '@sveltejs/kit';
 	import { Html5QrcodeSupportedFormats } from 'html5-qrcode';
 
 	let scannerVisible = false;
+	let message = 'hello';
 	export let recentScans: any;
 
 	function toggleScannerVisible() {
@@ -32,8 +34,14 @@
 			if (bookExists) {
 				scannerVisible = false;
 				goto(`/books/${code}`);
+			} else {
+				toastVisible = true;
 			}
 		});
+	}
+
+	function handleError(e: any) {
+		console.error(e);
 	}
 
 	async function checkForBook(isbn: string) {
@@ -44,6 +52,8 @@
 			return false;
 		}
 	}
+
+	let toastVisible = false;
 
 	$: buttonMode = !scannerVisible;
 </script>
@@ -57,8 +67,14 @@
 					scanArea: { width: 150, height: 85 },
 				}}
 				on:scan-success={(e) => handleScan(e.detail)}
+				on:scan-error={handleError}
 			/>
 		{/if}
+		<Toast
+			message="Please scan again."
+			visible={toastVisible}
+			on:toast-close={(e) => (toastVisible = false)}
+		/>
 	</div>
 	<button on:click={toggleScannerVisible}>{scannerVisible ? 'hide' : 'show'} scanner</button>
 </section>
